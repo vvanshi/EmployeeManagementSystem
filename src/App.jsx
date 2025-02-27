@@ -9,7 +9,7 @@ const App = () => {
 
 const [user,setUser]=useState(null)
 const[loggedInUser,setLoggedInUser]=useState(null);
-const authData=useContext(AuthContext);
+const [userData,setUserData]=useContext(AuthContext);
 
 useEffect(() => {
   const storedUser = localStorage.getItem('loggedInUser');
@@ -25,8 +25,8 @@ const handleLogin = (email, password) => {
   if (email === 'admin@me.com' && password === '123') {
     setUser('admin');
     localStorage.setItem('loggedInUser', JSON.stringify({ role: 'admin' })); // ✅ Corrected
-  } else if (authData) {
-    const employee = authData.employees.find((e) => email === e.email && password === e.password);
+  } else if (userData) {
+    const employee = userData.find((e) => email === e.email && password === e.password);
     if (employee) {
       setUser('employee');
       setLoggedInUser(employee);
@@ -42,7 +42,7 @@ const handleLogin = (email, password) => {
   return (
     < >
    {!user?<Login handleLogin={handleLogin}/>:''}
-   {user=='admin'?<AdminDashboard/>:user == 'employee'?<EmployeeDashboard data={loggedInUser}/>:null}
+   {user=='admin'?<AdminDashboard  changeUser={setUser}/>: (user == 'employee'?<EmployeeDashboard changeUser={setUser} data={loggedInUser}/>:null)}
     {/* <EmployeeDashboard /> */}
     {/* <AdminDashboard /> */}
     </>
