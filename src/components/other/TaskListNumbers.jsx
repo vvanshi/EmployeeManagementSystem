@@ -1,26 +1,32 @@
-import React from 'react'
+import React from 'react';
+import { ClipboardList } from "lucide-react";
 
-const TaskListNumbers = ({data}) => {
+const TaskListNumbers = ({ data }) => {
+  const tasks = [
+    { label: "New Task", count: data.taskCount.newTask },
+    { label: "Completed Task", count: data.taskCount.completed },
+    { label: "Active Task", count: data.taskCount.active },
+    { label: "Failed Task", count: data.taskCount.failed },
+  ];
+
   return (
-    <div className='flex mt-10 justify-between gap-5 screen text-white'>
-      <div className='rounded-xl w-[45%] py-6 px-9 bg-red-400'>
-        <h2 className='text-3xl font-semibold'>{data.taskCount.newTask}</h2>
-        <h3 className='text-xl font-medium'>New Task</h3>
-      </div>
-      <div className='rounded-xl w-[45%] py-6 px-9 bg-amber-300'>
-        <h2 className='text-3xl font-semibold'>{data.taskCount.completed}</h2>
-        <h3 className='text-xl font-medium'>Completed Task</h3>
-      </div>
-      <div className='rounded-xl w-[45%] py-6 px-9 bg-emerald-400'>
-        <h2 className='text-3xl font-semibold'>{data.taskCount.active}</h2>
-        <h3 className='text-xl font-medium'>Active Task</h3>
-      </div>
-      <div className='rounded-xl w-[45%] py-6 px-9 bg-blue-300'>
-        <h2 className='text-3xl font-semibold'>{data.taskCount.failed}</h2>
-        <h3 className='text-xl font-medium'>Failed Task</h3>
-      </div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-10 px-5 text-white">
+      {tasks.map((task, index) => (
+        <div
+          key={index}
+          className="flex items-center bg-white text-black border border-black shadow-md"
+        >
+          <div className="bg-emerald-600 h-full w-1/3 flex justify-center items-center py-6">
+            <ClipboardList className="w-10 h-10 text-black" />
+          </div>
+          <div className="flex flex-col justify-center px-4 py-3 w-2/3">
+            <h2 className="text-3xl font-bold">{task.count}</h2>
+            <p className="text-md font-medium text-gray-800">{task.label}</p>
+          </div>
+        </div>
+      ))}
     </div>
-  )
-}
+  );
+};
 
-export default TaskListNumbers
+export default TaskListNumbers;

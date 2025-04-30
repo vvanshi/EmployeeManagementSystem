@@ -1,21 +1,25 @@
-import React, { useState } from 'react'
+import React from 'react';
 
-const Header = (props) => {
-
-const logOutUser=()=>{
-  localStorage.setItem('loggedInUser','')
-  props.changeUser('')
-  // window.location.reload()
-}
+const Header = ({ data = {}, changeUser }) => {
+  const logOutUser = () => {
+    localStorage.setItem('loggedInUser', '');
+    changeUser('');
+  };
 
   return (
-    <div  className='text-white flex items-end justify-between'>
-      <h1 className='text-2xl font-medium'> Hello, <br /><span className='text-3xl font-bold'>username👋 </span></h1>
-      <button 
-      onClick={logOutUser}
-      className='bg-red-500 text-lg font-medium rounded-sm text-white px-5 py-2'>Log Out</button>
-    </div>
-  )
-}
+    <header className="w-full px-8 py-5 bg-emerald-700 backdrop-blur-md shadow-lg flex flex-col md:flex-row items-center justify-between text-white mb-10 border-b-2 border-emerald-900">
+      <h1 className="text-2xl md:text-3xl font-semibold tracking-wide">
+        Hello, <span className="font-bold text-emerald-200">{data?.name || 'Guest'} 👋</span>
+      </h1>
 
-export default Header
+      <button
+        onClick={logOutUser}
+        className="mt-4 md:mt-0 bg-emerald-600 hover:bg-red-600 transition-all duration-300 text-white px-6 py-2 font-semibold shadow-md border border-white/30"
+      >
+        Log Out
+      </button>
+    </header>
+  );
+};
+
+export default Header;
